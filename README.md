@@ -1,44 +1,72 @@
 # Learn
 
-A collection of small Python programs for studying languages and practicing vocabulary.
+A collection of Python programs for studying languages and practicing
+vocabulary.
 
-The repository contains several interactive command-line tools for vocabulary testing, English irregular verbs, and Ancient Greek typing.
+This repository contains several small command-line programs that were
+created to make language learning easier. The programs focus mainly on
+vocabulary testing, creating vocabulary lists, practicing English
+irregular verbs, and typing Ancient Greek.
 
-## Features
+The repository also contains vocabulary files that can be used with the
+learning programs.
 
-- 📚 **Vocabulary quizzes** using custom `.txt` word lists
-- 🔀 **Randomized questions** so vocabulary is tested in a different order each time
-- 📊 **Quiz results** including correct answers, mistakes, total questions, and time
-- 🇬🇧 **English irregular verb practice** with:
-  - Infinitive / base form
-  - Past simple
-  - Past participle
-- 🇬🇷 **Ancient Greek typing** using a custom keyboard mapping
-- 📝 **Word-list creation** through an interactive Python script
-- 📖 Includes several vocabulary lists for different languages and school subjects
+## Contents
 
-## Files
+- `Overhoring.py` - Vocabulary testing program
+- `Bijvoegen.py` - Vocabulary file creation tool
+- `Irregular verbs En.py` - English irregular verbs practice
+- `OudGrieks typen.py` - Ancient Greek keyboard tool
+- Several `.txt` files containing vocabulary
 
-### `Overhoring.py`
+---
 
-A general vocabulary quiz program.
+## Overhoring.py
 
-It can load one or more `.txt` vocabulary lists, combine them, randomize the questions, and test the user.
+`Overhoring.py` is the main vocabulary testing program in the
+repository.
 
-At the end of the quiz it displays:
+It is designed to turn vocabulary lists stored in `.txt` files into an
+interactive test. Instead of studying the vocabulary in a fixed order,
+the program can select and randomize vocabulary so that each test is
+different.
 
-- Number of correct answers
-- Number of incorrect answers
-- Number of questions
-- Time taken
-- A score out of 10
-- The words that were answered incorrectly
+### Selecting vocabulary
 
-### `Bijvoegen.py`
+The program allows vocabulary files to be selected for the test. The
+repository contains vocabulary lists for several languages and
+subjects, including Latin, Ancient Greek, English, German, and Dutch.
 
-A simple tool for creating vocabulary files.
+Multiple vocabulary lists can be used together. This makes it possible
+to create a larger test from several separate lists.
 
-The program asks for the name of the file and then lets you enter vocabulary in the following format:
+### Answering questions
+
+During the test, the program presents a vocabulary item and asks the
+user to provide its translation.
+
+The program checks each answer and keeps track of the number of correct
+and incorrect answers.
+
+The vocabulary is randomized so that the same words do not always
+appear in the same order.
+
+### Results
+
+After the test has finished, the program calculates the result and
+shows information about the performance.
+
+The incorrect answers are also recorded so that the user can see which
+words were difficult.
+
+This makes the program useful not only for testing knowledge, but also
+for identifying vocabulary that requires additional practice.
+
+### Vocabulary format
+
+The vocabulary files use a dictionary-like text format.
+
+For example:
 
 ```text
-foreign_word = Dutch_word
+{"word": "translation", "another word": "another translation"}
