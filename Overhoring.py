@@ -17,7 +17,7 @@ def minuten(tijd):
 
 def bestandsnaam(hvlf):
     while True:
-        bestand1 = "dicts\\" + input(f'    Wat is de naam van het {hvlf+1}e bestand? (Zonder .txt) ') + '.txt'
+        bestand1 = "dicts/" + input(f'    Wat is de naam van het {hvlf+1}e bestand? (Zonder .txt) ') + '.txt'
         try:
             open(bestand1, 'r', encoding='utf-8').close()
             return bestand1
