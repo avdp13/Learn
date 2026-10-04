@@ -83,7 +83,7 @@ foutenlijst = []
 
 for woord in woorden:
     print()
-    a = input(f"Wat is {woord} in het {taleno[l2ob]}? ").lower()
+    a = input(f"{woorden.index(woord)+1}. Wat is {woord} in het {taleno[l2ob]}? ").lower()
     if a == opvragen[woord]:
         print("Juist!")
         juisten += 1
