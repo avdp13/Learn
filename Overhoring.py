@@ -109,6 +109,7 @@ Cijfer: {round(juisten/(juisten+fouten)*10, 1)}
 if not foutenlijst:
     print('Je had alles goed!')
 else:
+    foutenlijst.sort(key=str.lower)
     print("Je had fout:")
     for woordfout in foutenlijst:
         print(f"    {woordfout}: {opvragen[woordfout]}")
