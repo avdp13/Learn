@@ -17,25 +17,25 @@ def minuten(tijd):
 
 def bestandsnaam(hvlf):
     while True:
-        bestand1 = "dicts/" + input(f'    Wat is de naam van het {hvlf+1}e bestand? (Zonder .txt) ') + '.txt'
+        bestand1 = "dicts/" + input(f'\033[38;2;0;0;255m    Wat is de naam van het {hvlf+1}e bestand? (Zonder .txt) \033[0m') + '.txt'
         try:
             open(bestand1, 'r', encoding='utf-8').close()
             return bestand1
         except FileNotFoundError:
-            print('    Het bestand bestaat niet. Probeer het opnieuw.')
+            print('\033[38;2;0;0;255m    Het bestand bestaat niet. Probeer het opnieuw.')
 
 def tojuis(fouten, juisten, foutenlijst, woord):
     print()
     while True:
-        greken = input('Wil je het toch goedrekenen? (Doe dit alleen bij typfout/meerdere goede antwoorden.) Y[es]/ N[o] ').lower().strip()
+        greken = input('Wil je het toch goedrekenen? (Doe dit alleen bij typfout/meerdere goede antwoorden.) Y[es]/ N[o] \033[0m').lower().strip()
         if greken == 'n':
             fouten += 1
             foutenlijst.append(woord)
-            print('Het is fout gerekend.\n')
+            print('\033[38;2;0;0;255mHet is fout gerekend.\n')
             return fouten, juisten, foutenlijst
                 
         elif greken == 'y':
-            print('Het is juist gerekend.\n')
+            print('\033[38;2;0;0;255mHet is juist gerekend.\n')
             juisten += 1
             return fouten, juisten, foutenlijst
         
@@ -46,7 +46,7 @@ def tojuis(fouten, juisten, foutenlijst, woord):
 talen = {'Du': 'Duits', 'En': 'Engels', 'Fa': 'Frans', 'La': 'Nederlands', 'Gr': 'Nederlands'}
 opvragen = {}
 
-hoeveelhtxts = int(input('Hoeveel lijsten wil je invoegen? (Het moet allemaal dezelfde taal zijn.) '))
+hoeveelhtxts = int(input('\033[38;2;0;0;255mHoeveel lijsten wil je invoegen? (Het moet allemaal dezelfde taal zijn.) \033[0m'))
 for w in range(hoeveelhtxts):
     bestand2 = bestandsnaam(w)
     with open(bestand2, 'r', encoding='utf-8') as bestand3:
@@ -54,7 +54,7 @@ for w in range(hoeveelhtxts):
         opvragen1 = ast.literal_eval(inhoud)
         opvragen = opvragen | opvragen1
 
-print(f'\nHoeveelheid woorden die opgevraagd gaan worden: {len(opvragen)}')
+print(f'\n\033[38;2;0;0;255mHoeveelheid woorden die opgevraagd gaan worden: {len(opvragen)}')
 
 with open(bestand2, 'r', encoding='utf-8') as bestand:
     inhoud = bestand.read()
@@ -83,13 +83,13 @@ foutenlijst = []
 
 for woord in woorden:
     print()
-    a = input(f"{woorden.index(woord)+1}. Wat is {woord} in het {taleno[l2ob]}? ").lower()
+    a = input(f"{woorden.index(woord)+1}. Wat is \033[1;38;2;0;0;255m{woord}\033[0m\033[38;2;0;0;255m in het {taleno[l2ob]}? \033[0m").lower()
     if a == opvragen[woord]:
-        print("Juist!")
+        print("\033[38;2;0;0;255mJuist!")
         juisten += 1
         
     else:
-        print(f'Fout. Het was {opvragen[woord]}')
+        print(f'\033[38;2;0;0;255mFout. Het was {opvragen[woord]}')
         if a in ['', '?']:
             fouten += 1
             foutenlijst.append(woord)
@@ -113,3 +113,4 @@ else:
     print("Je had fout:")
     for woordfout in foutenlijst:
         print(f"    {woordfout}: {opvragen[woordfout]}")
+        print('\033[0m')
