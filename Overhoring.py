@@ -40,7 +40,7 @@ def tojuis(fouten, juisten, foutenlijst, woord):
             return fouten, juisten, foutenlijst
         
         else:
-            print('Voer Y of N in.')
+            print('\033[38;2;0;0;255Voer Y of N in.')
         
 
 talen = {'Du': 'Duits', 'En': 'Engels', 'Fa': 'Frans', 'La': 'Nederlands', 'Gr': 'Nederlands'}
@@ -113,4 +113,4 @@ else:
     print("Je had fout:")
     for woordfout in foutenlijst:
         print(f"    {woordfout}: {opvragen[woordfout]}")
-        print('\033[0m')
+print('\033[0m')
