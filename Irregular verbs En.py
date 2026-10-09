@@ -354,7 +354,7 @@ for woord in woorden:
             print("Juist!")
             juistenpastsim += 1
 
-            pastparticiplevraag = input(f'Wat is de past participle van {verbnpastsim[nederlnverb[woord]]}? ').lower()
+            pastparticiplevraag = input(f'Wat is de past participle van {nederlnverb[woord]}? ').lower()
 
             if pastparticiplevraag == pastsimpnpastpartic[verbnpastsim[nederlnverb[woord]]]:
                 print('Juist!')
@@ -377,16 +377,15 @@ end = time.time()
 tijd = minuten(round(end - start, 0))
 
 print('\n')
-print(f"Hoeveelheid fouten bij present simple: {foutenverb}")
-print(f"Hoeveelheid fouten bij past simple: {foutenpastsim}")
-print(f"Hoeveelheid fouten bij past participle: {foutenpstpart}\n")
+print(f"""Hoeveelheid fouten bij present simple: {foutenverb}
+Hoeveelheid fouten bij past simple: {foutenpastsim}
+Hoeveelheid fouten bij past participle: {foutenpstpart}
 
-print(f"Hoeveelheid juiste bij present simple: {juistenverb}")
-print(f"Hoeveelheid juiste bij past simple: {juistenpastsim}")
-print(f"Hoeveelheid juiste bij past participle: {juistenpstpart}\n")
-print(f"Hoeveelheid tijd: {tijd}")
-#print(f"Cijfer: {round(juisten/(juisten+fouten)*10, 1)}")
-print()
-print("Je had fout:")
+Hoeveelheid juiste bij present simple: {juistenverb}
+Hoeveelheid juiste bij past simple: {juistenpastsim}
+Hoeveelheid juiste bij past participle: {juistenpstpart}
+Hoeveelheid tijd: {tijd}
+
+Je had fout:""")
 for z in foutenlijst:
     print(f"    {z}, {nederlnverb[z]}, {verbnpastsim[nederlnverb[z]]}, {pastsimpnpastpartic[verbnpastsim[nederlnverb[z]]]}")
