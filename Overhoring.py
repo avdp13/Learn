@@ -40,8 +40,56 @@ def tojuis(fouten, juisten, foutenlijst, woord):
             return fouten, juisten, foutenlijst
         
         else:
-            print('\033[38;2;0;0;255Voer Y of N in.')
-        
+            print('\033[38;2;0;0;255mVoer Y of N in.')
+
+def review(foutenlijst, fouten, juisten, tijd, opvragen):
+    print()
+    print(f"""Hoeveelheid fouten: {fouten}
+Hoeveelheid juist: {juisten}
+Hoeveelheid vragen: {len(opvragen)}
+Hoeveelheid tijd: {tijd}
+Cijfer: {round(juisten/(juisten+fouten)*10, 1)}""")
+    if not foutenlijst:
+        print('Je had alles goed!')
+    else:
+        foutenlijst.sort(key=str.lower)
+        print("Je had fout:")
+        for woordfout in foutenlijst:
+            print(f"    {woordfout}: {opvragen[woordfout]}")
+        opnieuw = input('\nWil je je fouten opnieuw doen? [y/n]\033[0m ').lower()
+        if opnieuw == 'y':
+            opvragen1 = {}
+            for fout in foutenlijst:
+                opvragen1[fout] = opvragen[fout]
+            opvragenfunc(opvragen1)
+
+def opvragenfunc(opvragen):
+    start = time.time()
+    woorden = list(opvragen.keys())
+    random.shuffle(woorden)
+    fouten = 0
+    juisten = 0
+    foutenlijst = []
+
+    print(f'\n\033[38;2;0;0;255mHoeveelheid woorden die opgevraagd gaan worden: {len(opvragen)}')
+
+    for woord in woorden:
+        a = input(f"\n{woorden.index(woord)+1}. Wat is \033[1;38;2;0;0;255m{woord}\033[0m\033[38;2;0;0;255m in het {taleno[l2ob]}? \033[0m").lower()
+        if a == opvragen[woord]:
+            print("\033[38;2;0;0;255mJuist!")
+            juisten += 1
+                
+        else:
+            print(f'\033[38;2;0;0;255mFout. Het was {opvragen[woord]}')
+            if a in ['', '?']:
+                fouten += 1
+                foutenlijst.append(woord)
+            else:
+                fouten, juisten, foutenlijst = tojuis(fouten, juisten, foutenlijst, woord)
+    end = time.time()
+    tijd = minuten(round(end - start, 0))
+
+    review(foutenlijst, fouten, juisten, tijd, opvragen)
 
 talen = {'Du': 'Duits', 'En': 'Engels', 'Fa': 'Frans', 'La': 'Nederlands', 'Gr': 'Nederlands'}
 opvragen = {}
@@ -53,8 +101,6 @@ for w in range(hoeveelhtxts):
         inhoud = bestand3.read()
         opvragen1 = ast.literal_eval(inhoud)
         opvragen = opvragen | opvragen1
-
-print(f'\n\033[38;2;0;0;255mHoeveelheid woorden die opgevraagd gaan worden: {len(opvragen)}')
 
 with open(bestand2, 'r', encoding='utf-8') as bestand:
     inhoud = bestand.read()
@@ -74,43 +120,4 @@ with open(bestand2, 'r', encoding='utf-8') as bestand:
         elif naarovanuit == "v":
             taleno = {'Du': 'Nederlands', 'En': 'Nederlands', 'Fa': 'Nederlands'}
 
-start = time.time()
-woorden = list(opvragen.keys())
-random.shuffle(woorden)
-fouten = 0
-juisten = 0
-foutenlijst = []
-
-for woord in woorden:
-    print()
-    a = input(f"{woorden.index(woord)+1}. Wat is \033[1;38;2;0;0;255m{woord}\033[0m\033[38;2;0;0;255m in het {taleno[l2ob]}? \033[0m").lower()
-    if a == opvragen[woord]:
-        print("\033[38;2;0;0;255mJuist!")
-        juisten += 1
-        
-    else:
-        print(f'\033[38;2;0;0;255mFout. Het was {opvragen[woord]}')
-        if a in ['', '?']:
-            fouten += 1
-            foutenlijst.append(woord)
-        else:
-            fouten, juisten, foutenlijst = tojuis(fouten, juisten, foutenlijst, woord)
-        
-end = time.time()
-tijd = minuten(round(end - start, 0))
-
-print()
-print(f"""Hoeveelheid fouten: {fouten}
-Hoeveelheid juist: {juisten}
-Hoeveelheid vragen: {len(opvragen)}
-Hoeveelheid tijd: {tijd}
-Cijfer: {round(juisten/(juisten+fouten)*10, 1)}
-""")
-if not foutenlijst:
-    print('Je had alles goed!')
-else:
-    foutenlijst.sort(key=str.lower)
-    print("Je had fout:")
-    for woordfout in foutenlijst:
-        print(f"    {woordfout}: {opvragen[woordfout]}")
-print('\033[0m')
+opvragenfunc(opvragen)
