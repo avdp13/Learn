@@ -74,8 +74,8 @@ def opvragenfunc(opvragen):
     print(f'\n\033[38;2;0;0;255mHoeveelheid woorden die opgevraagd gaan worden: {len(opvragen)}')
 
     for woord in woorden:
-        a = input(f"\n{woorden.index(woord)+1}. Wat is \033[1;38;2;0;0;255m{woord}\033[0m\033[38;2;0;0;255m in het {taleno[l2ob]}? \033[0m").lower()
-        if a == opvragen[woord]:
+        a = input(f"\n{woorden.index(woord)+1}. Wat is \033[1;38;2;0;0;255m{woord}\033[0m\033[38;2;0;0;255m in het {taleno[l2ob]}? \033[0m").lower().strip()
+        if a == opvragen[woord].lower().strip():
             print("\033[38;2;0;0;255mJuist!")
             juisten += 1
                 
@@ -111,7 +111,7 @@ with open(bestand2, 'r', encoding='utf-8') as bestand:
         taleno = {'La': 'Nederlands', 'Gr': 'Nederlands'}
         
     else:
-        naarovanuit = input(f"Wil je het naar het {talen[l2ob]} of vanuit het {talen[l2ob]}? (Typ N(aar) of V(anuit)) ").lower()
+        naarovanuit = input(f"\033[38;2;0;0;255mWil je het naar het {talen[l2ob]} of vanuit het {talen[l2ob]}? (Typ N(aar) of V(anuit)) \033[0m").lower()
         if naarovanuit == "n":
             taleno = {'Du': 'Duits', 'En': 'Engels', 'Fa': 'Frans'}
             opvragen1 = opvragen
