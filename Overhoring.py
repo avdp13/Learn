@@ -17,7 +17,7 @@ def minuten(tijd):
 
 def bestandsnaam(hvlf):
     while True:
-        bestand1 = "dicts/" + input(f'\033[38;2;0;0;255m    Wat is de naam van het {hvlf+1}e bestand? (Zonder .txt) \033[0m') + '.txt'
+        bestand1 = "Dicts/" + input(f'\033[38;2;0;0;255m    Wat is de naam van het {hvlf+1}e bestand? (Zonder .txt) \033[0m') + '.txt'
         try:
             open(bestand1, 'r', encoding='utf-8').close()
             return bestand1
@@ -50,7 +50,7 @@ Hoeveelheid vragen: {len(opvragen)}
 Hoeveelheid tijd: {tijd}
 Cijfer: {round(juisten/(juisten+fouten)*10, 1)}""")
     if not foutenlijst:
-        print('Je had alles goed!')
+        print('\nJe had alles goed!')
     else:
         foutenlijst.sort(key=str.lower)
         print("Je had fout:")

@@ -342,7 +342,7 @@ foutenlijst = []
 
 for woord in woorden:
     print()
-    verbvraag = input(f"{woorden.index(woord)+1}Wat is {woord} in het Engels? ").lower()
+    verbvraag = input(f"{woorden.index(woord)+1}. Wat is {woord} in het Engels? ").lower()
 
     if verbvraag == nederlnverb[woord]:
         print("Juist!")
