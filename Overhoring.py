@@ -80,7 +80,7 @@ def opvragenfunc(opvragen):
             juisten += 1
                 
         else:
-            print(f'\033[38;2;0;0;255mFout. Het was {opvragen[woord]}')
+            print(f'\033[38;2;0;0;255mFout. Het was \033[1;38;2;0;0;255m{opvragen[woord]}\033[0m\033[38;2;0;0;255m.')
             if a in ['', '?']:
                 fouten += 1
                 foutenlijst.append(woord)
@@ -94,7 +94,9 @@ def opvragenfunc(opvragen):
 talen = {'Du': 'Duits', 'En': 'Engels', 'Fa': 'Frans', 'La': 'Nederlands', 'Gr': 'Nederlands'}
 opvragen = {}
 
-hoeveelhtxts = int(input('\033[38;2;0;0;255mHoeveel lijsten wil je invoegen? (Het moet allemaal dezelfde taal zijn.) \033[0m'))
+print('\033[38;2;0;0;255mWelkom bij de overhoring!\n')
+
+hoeveelhtxts = int(input('Hoeveel lijsten wil je invoegen? (Het moet allemaal dezelfde taal zijn.) \033[0m'))
 for w in range(hoeveelhtxts):
     bestand2 = bestandsnaam(w)
     with open(bestand2, 'r', encoding='utf-8') as bestand3:
@@ -121,3 +123,4 @@ with open(bestand2, 'r', encoding='utf-8') as bestand:
             taleno = {'Du': 'Nederlands', 'En': 'Nederlands', 'Fa': 'Nederlands'}
 
 opvragenfunc(opvragen)
+print('\n\033[38;2;0;0;255mOverhoring voltooid!\033[0m')
