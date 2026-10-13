@@ -1,4 +1,4 @@
-naamfile = "dicts/" + input('Wat is de naam van de file? (Zorg ervoor dat de laatste 2 letters de afkorting van de taal zijn.) ') + ".txt"
+naamfile = "Dicts/" + input('\033[38;2;0;0;255mWat is de naam van de file? (Zorg ervoor dat de laatste 2 letters de afkorting van de taal zijn.) \033[0m') + ".txt"
 
 print("""\033[38;2;0;0;255mTyp de woorden.
 Zorg ervoor dat het woord in de andere taal eerst staat, daarna een is teken (=) en daarna het woord in het Nederlands.
