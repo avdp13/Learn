@@ -3,7 +3,7 @@ import random
 import time
 
 def minuten(tijd):
-    if (tijd > 60.0):
+    if (tijd >= 60.0):
         m = int(tijd // 60)
         s = round(tijd % 60)
     else:
@@ -91,12 +91,12 @@ def opvragenfunc(opvragen):
 
     review(foutenlijst, fouten, juisten, tijd, opvragen)
 
-talen = {'Du': 'Duits', 'En': 'Engels', 'Fa': 'Frans', 'La': 'Nederlands', 'Gr': 'Nederlands'}
+talen = {'du': 'Duits', 'en': 'Engels', 'fa': 'Frans', 'la': 'Nederlands', 'gr': 'Nederlands'}
 opvragen = {}
 
 print('\033[38;2;0;0;255mWelkom bij de overhoring!\n')
 
-hoeveelhtxts = int(input('Hoeveel lijsten wil je invoegen? (Het moet allemaal dezelfde taal zijn.) \033[0m'))
+hoeveelhtxts = max(1, int(input('Hoeveel lijsten wil je invoegen? (Het moet allemaal dezelfde taal zijn.) \033[0m')))
 for w in range(hoeveelhtxts):
     bestand2 = bestandsnaam(w)
     with open(bestand2, 'r', encoding='utf-8') as bestand3:
@@ -107,20 +107,23 @@ for w in range(hoeveelhtxts):
 with open(bestand2, 'r', encoding='utf-8') as bestand:
     inhoud = bestand.read()
     bestand4 = bestand2[:-4]
-    l2ob = bestand4[-2:]
+    l2ob = bestand4[-2:].lower()
+
+    if l2ob not in talen:
+        l2ob = input(f"\033[38;2;0;0;255mDe taal van het bestand is niet herkend. Wat is de taal van het bestand? (du, en, fa, la, gr) \033[0m").lower().strip()
     
-    if l2ob in ["La", 'Gr']:
-        taleno = {'La': 'Nederlands', 'Gr': 'Nederlands'}
+    if l2ob in ["la", 'gr']:
+        taleno = {'la': 'Nederlands', 'gr': 'Nederlands'}
         
     else:
-        naarovanuit = input(f"\033[38;2;0;0;255mWil je het naar het {talen[l2ob]} of vanuit het {talen[l2ob]}? (Typ N(aar) of V(anuit)) \033[0m").lower()
+        naarovanuit = input(f"\033[38;2;0;0;255mWil je het naar het {talen[l2ob]} of vanuit het {talen[l2ob]}? (Typ N(aar) of V(anuit)) \033[0m").lower().strip()
         if naarovanuit == "n":
-            taleno = {'Du': 'Duits', 'En': 'Engels', 'Fa': 'Frans'}
+            taleno = {'du': 'Duits', 'en': 'Engels', 'fa': 'Frans'}
             opvragen1 = opvragen
             opvragen = {v: k for k, v in opvragen1.items()}
             
         elif naarovanuit == "v":
-            taleno = {'Du': 'Nederlands', 'En': 'Nederlands', 'Fa': 'Nederlands'}
+            taleno = {'du': 'Nederlands', 'en': 'Nederlands', 'fa': 'Nederlands'}
 
 opvragenfunc(opvragen)
 print('\n\033[38;2;0;0;255mOverhoring voltooid!\033[0m')
