@@ -85,7 +85,22 @@ def opvragenfunc(opvragen):
                 fouten += 1
                 foutenlijst.append(woord)
             else:
-                fouten, juisten, foutenlijst = tojuis(fouten, juisten, foutenlijst, woord)
+                print()
+                while True:
+                    greken = input('Wil je het toch goedrekenen? (Doe dit alleen bij typfout/meerdere goede antwoorden.) Y[es]/ N[o] \033[0m').lower().strip()
+                    if greken == 'n':
+                        fouten += 1
+                        foutenlijst.append(woord)
+                        print('\033[38;2;0;0;255mHet is fout gerekend.\n')
+                        break
+                            
+                    elif greken == 'y':
+                        print('\033[38;2;0;0;255mHet is juist gerekend.\n')
+                        juisten += 1
+                        break
+                     
+                    else:
+                        print('\033[38;2;0;0;255mVoer Y of N in.')
     end = time.time()
     tijd = minuten(round(end - start, 0))
 
@@ -101,7 +116,7 @@ while True:
         hoeveelhtxts = max(1, int(input('Hoeveel lijsten wil je invoegen? (Het moet allemaal dezelfde taal zijn.) \033[0m')))
         break
     except ValueError:
-        print('Voer een getal in. ')
+        print('\033[38;2;0;0;255mVoer een getal in.')
 
 for w in range(hoeveelhtxts):
     bestand2 = bestandsnaam(w)
@@ -119,14 +134,19 @@ with open(bestand2, 'r', encoding='utf-8') as bestand:
         while True:
             l2ob = input(f"\033[38;2;0;0;255mDe taal van het bestand is niet herkend. Wat is de taal van het bestand? (du, en, fa, la, gr) \033[0m").lower().strip()
             if l2ob not in talen:
-                print('Kies uit: du, en, fa, la, gr')
+                print('\033[38;2;0;0;255mKies uit: du, en, fa, la, gr')
             else:
                 break
     if l2ob in ["la", 'gr']:
         taleno = {'la': 'Nederlands', 'gr': 'Nederlands'}
         
     else:
-        naarovanuit = input(f"\033[38;2;0;0;255mWil je het naar het {talen[l2ob]} of vanuit het {talen[l2ob]}? (Typ N(aar) of V(anuit)) \033[0m").lower().strip()
+        while True:
+            naarovanuit = input(f"\033[38;2;0;0;255mWil je het naar het {talen[l2ob]} of vanuit het {talen[l2ob]}? (Typ N(aar) of V(anuit)) \033[0m").lower().strip()
+            if naarovanuit not in ["n", "v"]:
+                print('Kies uit n of v')
+            else:
+                break
         if naarovanuit == "n":
             taleno = {'du': 'Duits', 'en': 'Engels', 'fa': 'Frans'}
             opvragen1 = opvragen
