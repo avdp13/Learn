@@ -96,7 +96,13 @@ opvragen = {}
 
 print('\033[38;2;0;0;255mWelkom bij de overhoring!\n')
 
-hoeveelhtxts = max(1, int(input('Hoeveel lijsten wil je invoegen? (Het moet allemaal dezelfde taal zijn.) \033[0m')))
+while True:
+    try:
+        hoeveelhtxts = max(1, int(input('Hoeveel lijsten wil je invoegen? (Het moet allemaal dezelfde taal zijn.) \033[0m')))
+        break
+    except ValueError:
+        print('Voer een getal in. ')
+
 for w in range(hoeveelhtxts):
     bestand2 = bestandsnaam(w)
     with open(bestand2, 'r', encoding='utf-8') as bestand3:
@@ -110,8 +116,12 @@ with open(bestand2, 'r', encoding='utf-8') as bestand:
     l2ob = bestand4[-2:].lower()
 
     if l2ob not in talen:
-        l2ob = input(f"\033[38;2;0;0;255mDe taal van het bestand is niet herkend. Wat is de taal van het bestand? (du, en, fa, la, gr) \033[0m").lower().strip()
-    
+        while True:
+            l2ob = input(f"\033[38;2;0;0;255mDe taal van het bestand is niet herkend. Wat is de taal van het bestand? (du, en, fa, la, gr) \033[0m").lower().strip()
+            if l2ob not in talen:
+                print('Kies uit: du, en, fa, la, gr')
+            else:
+                break
     if l2ob in ["la", 'gr']:
         taleno = {'la': 'Nederlands', 'gr': 'Nederlands'}
         
