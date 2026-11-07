@@ -155,5 +155,9 @@ with open(bestand2, 'r', encoding='utf-8') as bestand:
         elif naarovanuit == "v":
             taleno = {'du': 'Nederlands', 'en': 'Nederlands', 'fa': 'Nederlands'}
 
-opvragenfunc(opvragen)
+if len(opvragen) == 0:
+    print('\033[38;2;0;0;255mEr zijn geen woorden om op te vragen. Het programma wordt afgesloten.\033[0m')
+else:
+    opvragenfunc(opvragen)
+
 print('\n\033[38;2;0;0;255mOverhoring voltooid!\033[0m')
