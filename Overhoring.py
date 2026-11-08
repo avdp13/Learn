@@ -24,24 +24,6 @@ def bestandsnaam(hvlf):
         except FileNotFoundError:
             print('\033[38;2;0;0;255m    Het bestand bestaat niet. Probeer het opnieuw.')
 
-def tojuis(fouten, juisten, foutenlijst, woord):
-    print()
-    while True:
-        greken = input('Wil je het toch goedrekenen? (Doe dit alleen bij typfout/meerdere goede antwoorden.) Y[es]/ N[o] \033[0m').lower().strip()
-        if greken == 'n':
-            fouten += 1
-            foutenlijst.append(woord)
-            print('\033[38;2;0;0;255mHet is fout gerekend.\n')
-            return fouten, juisten, foutenlijst
-                
-        elif greken == 'y':
-            print('\033[38;2;0;0;255mHet is juist gerekend.\n')
-            juisten += 1
-            return fouten, juisten, foutenlijst
-        
-        else:
-            print('\033[38;2;0;0;255mVoer Y of N in.')
-
 def review(foutenlijst, fouten, juisten, tijd, opvragen):
     print()
     print(f"""Hoeveelheid fouten: {fouten}
