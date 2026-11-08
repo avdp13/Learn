@@ -4,7 +4,7 @@ import time
 
 def minuten(tijd):
     if (tijd >= 60.0):
-        m = round(tijd) // 60
+        m = int(round(tijd)) // 60
         s = round(tijd) % 60
     else:
         m = 0
@@ -20,7 +20,16 @@ def bestandsnaam(hvlf):
         bestand1 = "Dicts/" + input(f'\033[38;2;0;0;255m    Wat is de naam van het {hvlf+1}e bestand? (Zonder .txt) \033[0m') + '.txt'
         try:
             open(bestand1, 'r', encoding='utf-8').close()
-            return bestand1
+            lang = bestand1[:-4][-2:].lower()
+            
+            if lang not in talen:
+                while True:
+                    lang = input(f"\033[38;2;0;0;255mDe taal van het bestand is niet herkend. Wat is de taal van het bestand? (du, en, fa, la, gr) \033[0m").lower().strip()
+                    if lang not in talen:
+                        print('\033[38;2;0;0;255mKies uit: du, en, fa, la, gr')
+                    else:
+                        break
+            return bestand1, lang
         except FileNotFoundError:
             print('\033[38;2;0;0;255m    Het bestand bestaat niet. Probeer het opnieuw.')
 
@@ -89,7 +98,6 @@ def opvragenfunc(opvragen):
     review(foutenlijst, fouten, juisten, tijd, opvragen)
 
 talen = {'du': 'Duits', 'en': 'Engels', 'fa': 'Frans', 'la': 'Nederlands', 'gr': 'Nederlands'}
-opvragen = {}
 
 print('\033[38;2;0;0;255mWelkom bij de overhoring!\n')
 
@@ -100,25 +108,28 @@ while True:
     except ValueError:
         print('\033[38;2;0;0;255mVoer een getal in.')
 
-for w in range(hoeveelhtxts):
-    bestand2 = bestandsnaam(w)
-    with open(bestand2, 'r', encoding='utf-8') as bestand3:
-        inhoud = bestand3.read()
-        opvragen1 = ast.literal_eval(inhoud)
-        opvragen = opvragen | opvragen1
+while True:
+    opvragen = {}
+    difflangs = []
+    for w in range(hoeveelhtxts):
+        bestand2, lang = bestandsnaam(w)
+        difflangs.append(lang)
+        with open(bestand2, 'r', encoding='utf-8') as bestand3:
+            inhoud = bestand3.read()
+            opvragen1 = ast.literal_eval(inhoud)
+            opvragen = opvragen | opvragen1
+
+    if len(set(difflangs)) <= 1:
+        break
+    else:
+        print('\033[38;2;0;0;255mDe talen van de bestanden zijn niet hetzelfde. Probeer het opnieuw.\033[0m')
+
 
 with open(bestand2, 'r', encoding='utf-8') as bestand:
     inhoud = bestand.read()
-    bestand4 = bestand2[:-4]
-    l2ob = bestand4[-2:].lower()
 
-    if l2ob not in talen:
-        while True:
-            l2ob = input(f"\033[38;2;0;0;255mDe taal van het bestand is niet herkend. Wat is de taal van het bestand? (du, en, fa, la, gr) \033[0m").lower().strip()
-            if l2ob not in talen:
-                print('\033[38;2;0;0;255mKies uit: du, en, fa, la, gr')
-            else:
-                break
+    l2ob = difflangs[0]
+
     if l2ob in ["la", 'gr']:
         taleno = {'la': 'Nederlands', 'gr': 'Nederlands'}
         
