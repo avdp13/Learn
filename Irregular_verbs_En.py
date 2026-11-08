@@ -2,9 +2,9 @@ import random
 import time
 
 def minuten(tijd):
-    if (tijd > 60.0):
-        m = int(tijd // 60)
-        s = round(tijd % 60)
+    if (tijd >= 60.0):
+        m = round(tijd) // 60
+        s = round(tijd) % 60
     else:
         m = 0
         s = tijd
