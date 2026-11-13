@@ -47,12 +47,19 @@ Cijfer: {round(juisten/(juisten+fouten)*10, 1)}""")
         print("Je had fout:")
         for woordfout in foutenlijst:
             print(f"    {woordfout}: {opvragen[woordfout]}")
-        opnieuw = input('\nWil je je fouten opnieuw doen? [y/n]\033[0m ').lower()
-        if opnieuw == 'y':
-            opvragen1 = {}
-            for fout in foutenlijst:
-                opvragen1[fout] = opvragen[fout]
-            opvragenfunc(opvragen1)
+        print()
+        while True:
+            opnieuw = input('Wil je je fouten opnieuw doen? [y/n]\033[0m ').lower().strip()
+            if opnieuw == 'y':
+                opvragen1 = {}
+                for fout in foutenlijst:
+                    opvragen1[fout] = opvragen[fout]
+                opvragenfunc(opvragen1)
+                break
+            elif opnieuw == 'n':
+                break
+            else:
+                print('\033[38;2;0;0;255mVul Y of N in.')
 
 def opvragenfunc(opvragen):
     start = time.time()
@@ -122,7 +129,7 @@ while True:
     if len(set(difflangs)) <= 1:
         break
     else:
-        print('\033[38;2;0;0;255mDe talen van de bestanden zijn niet hetzelfde. Probeer het opnieuw.\033[0m')
+        print('\033[38;2;0;0;255mDe talen van de bestanden zijn niet hetzelfde. Probeer het opnieuw. \033[0m \n')
 
 
 with open(bestand2, 'r', encoding='utf-8') as bestand:
