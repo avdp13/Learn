@@ -144,7 +144,7 @@ with open(bestand2, 'r', encoding='utf-8') as bestand:
         while True:
             naarovanuit = input(f"\033[38;2;0;0;255mWil je het naar het {talen[l2ob]} of vanuit het {talen[l2ob]}? (Typ N(aar) of V(anuit)) \033[0m").lower().strip()
             if naarovanuit not in ["n", "v"]:
-                print('Kies uit n of v')
+                print('\033[38;2;0;0;255mKies uit n of v')
             else:
                 break
         if naarovanuit == "n":

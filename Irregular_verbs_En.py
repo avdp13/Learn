@@ -342,34 +342,34 @@ foutenlijst = []
 
 for woord in woorden:
     print()
-    verbvraag = input(f"{woorden.index(woord)+1}. Wat is {woord} in het Engels? ").lower()
+    verbvraag = input(f"\033[38;2;0;0;255m{woorden.index(woord)+1}. Wat is {woord} in het Engels? \033[0m").lower()
 
     if verbvraag == nederlnverb[woord]:
-        print("Juist!")
+        print(f"\033[38;2;0;255;0mJuist!\033[0m")
         juistenverb += 1
 
-        pastsimplevraag = input(f"Wat is de past simple van {nederlnverb[woord]}? ").lower()
+        pastsimplevraag = input(f"\033[38;2;0;0;255mWat is de past simple van {nederlnverb[woord]}? \033[0m").lower()
 
         if pastsimplevraag == verbnpastsim[nederlnverb[woord]]:
-            print("Juist!")
+            print(f"\033[38;2;0;255;0mJuist!\033[0m")
             juistenpastsim += 1
 
-            pastparticiplevraag = input(f'Wat is de past participle van {nederlnverb[woord]}? ').lower()
+            pastparticiplevraag = input(f"\033[38;2;0;0;255mWat is de past participle van {nederlnverb[woord]}? \033[0m").lower()
 
             if pastparticiplevraag == pastsimpnpastpartic[verbnpastsim[nederlnverb[woord]]]:
-                print('Juist!')
+                print(f"\033[38;2;0;255;0mJuist!\033[0m")
                 juistenpstpart += 1
             else:
-                print(f'Fout. Het was {pastsimpnpastpartic[verbnpastsim[nederlnverb[woord]]]}')
+                print(f"\033[38;2;255;0;0mFout. Het was {pastsimpnpastpartic[verbnpastsim[nederlnverb[woord]]]}\033[0m")
                 foutenpstpart += 1
                 foutenlijst.append(woord)
         else:
-            print(f"Fout, het was {verbnpastsim[nederlnverb[woord]]}")
+            print(f"\033[38;2;255;0;0mFout, het was {verbnpastsim[nederlnverb[woord]]}\033[0m")
             foutenpastsim += 1
             foutenlijst.append(woord)
             
     else:
-        print(f"Fout, het was {nederlnverb[woord]}")
+        print(f"\033[38;2;255;0;0mFout, het was {nederlnverb[woord]}\033[0m")
         foutenverb += 1
         foutenlijst.append(woord)
 
@@ -377,7 +377,7 @@ end = time.time()
 tijd = minuten(round(end - start, 0))
 
 print('\n')
-print(f"""Hoeveelheid fouten bij present simple: {foutenverb}
+print(f"""\033[38;2;0;0;255mHoeveelheid fouten bij present simple: {foutenverb}
 Hoeveelheid fouten bij past simple: {foutenpastsim}
 Hoeveelheid fouten bij past participle: {foutenpstpart}
 
@@ -389,3 +389,4 @@ Hoeveelheid tijd: {tijd}
 Je had fout:""")
 for z in foutenlijst:
     print(f"    {z}, {nederlnverb[z]}, {verbnpastsim[nederlnverb[z]]}, {pastsimpnpastpartic[verbnpastsim[nederlnverb[z]]]}")
+print('\033[0m')
