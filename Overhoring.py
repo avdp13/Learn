@@ -85,10 +85,10 @@ def opvragenfunc(opvragen):
 
     for woord in woorden:
         a = input(f"\n{woorden.index(woord)+1}. Wat is \033[1;38;2;0;0;255m{woord}\033[0m\033[38;2;0;0;255m in het {taleno[l2ob]}? \033[0m").lower().strip()
-        if a == opvragen[woord].lower().strip():
+        if a.translate(str.maketrans('', '', '.!?,"/')) == opvragen[woord].lower().strip().translate(str.maketrans('', '', '.!?,"/')):
             print("\033[38;2;0;0;255mJuist!")
             juisten += 1
-                
+            
         else:
             print(f'\033[38;2;0;0;255mFout. Het was \033[1;38;2;0;0;255m{opvragen[woord]}\033[0m\033[38;2;0;0;255m.')
             if a in ['', '?']:
