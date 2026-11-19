@@ -1,6 +1,10 @@
 import ast
 import random
 import time
+import os
+
+folder = r'/home/avdp/Documents/learn/Dicts'
+files = sorted([f for f in os.listdir(folder) if f.endswith('.txt')], key=str.lower)
 
 def minuten(tijd):
     if (tijd >= 60.0):
@@ -17,21 +21,29 @@ def minuten(tijd):
 
 def bestandsnaam(hvlf):
     while True:
-        bestand1 = "Dicts/" + input(f'\033[38;2;0;0;255m    Wat is de naam van het {hvlf+1}e bestand? (Zonder .txt) \033[0m') + '.txt'
-        try:
-            open(bestand1, 'r', encoding='utf-8').close()
-            lang = bestand1[:-4][-2:].lower()
-            
-            if lang not in talen:
-                while True:
-                    lang = input(f"\033[38;2;0;0;255mDe taal van het bestand is niet herkend. Wat is de taal van het bestand? (du, en, fa, la, gr) \033[0m").lower().strip()
-                    if lang not in talen:
-                        print('\033[38;2;0;0;255mKies uit: du, en, fa, la, gr')
-                    else:
-                        break
-            return bestand1, lang
-        except FileNotFoundError:
+        bestand1 = "Dicts/" + input(f'\033[38;2;0;0;255m    Wat is de naam van het {hvlf+1}e bestand? (Zonder .txt, typ "namen" als je alle mogelijke bestanden wilt.) \033[0m') + '.txt'
+        
+        if bestand1.lower() == "dicts/namen.txt":
+            print()
+            for file in files:
+                print(file)
+            print()
+            continue
+        
+        if bestand1[6:] not in files:
             print('\033[38;2;0;0;255m    Het bestand bestaat niet. Probeer het opnieuw.')
+            continue
+        lang = bestand1[:-4][-2:].lower()
+        
+        if lang not in talen:
+            while True:
+                lang = input(f"\033[38;2;0;0;255mDe taal van het bestand is niet herkend. Wat is de taal van het bestand? (du, en, fa, la, gr) \033[0m").lower().strip()
+                if lang not in talen:
+                    print('\033[38;2;0;0;255mKies uit: du, en, fa, la, gr')
+                else:
+                    return bestand1, lang
+        else:
+            return bestand1, lang
 
 def review(foutenlijst, fouten, juisten, tijd, opvragen):
     print()
