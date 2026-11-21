@@ -1,10 +1,10 @@
 import ast
 import random
 import time
-import os
+from pathlib import Path
 
-folder = r'/home/avdp/Documents/learn/Dicts'
-files = sorted([f for f in os.listdir(folder) if f.endswith('.txt')], key=str.lower)
+folder = Path.cwd() / "Dicts"
+files = sorted([f.name for f in folder.glob("*.txt")], key=str.lower)
 
 def minuten(tijd):
     if (tijd >= 60.0):
@@ -21,19 +21,19 @@ def minuten(tijd):
 
 def bestandsnaam(hvlf):
     while True:
-        bestand1 = "Dicts/" + input(f'\033[38;2;0;0;255m    Wat is de naam van het {hvlf+1}e bestand? (Zonder .txt, typ "namen" als je alle mogelijke bestanden wilt.) \033[0m') + '.txt'
+        bestand1 = folder / (input(f'\033[38;2;0;0;255m    Wat is de naam van het {hvlf+1}e bestand? (Zonder .txt, typ "namen" als je alle mogelijke bestanden wilt.) \033[0m') + '.txt')
         
-        if bestand1.lower() == "dicts/namen.txt":
-            print()
+        if str(bestand1.name) == 'namen.txt':
+            print('\033[38;2;0;0;255m')
             for file in files:
                 print(file)
             print()
             continue
         
-        if bestand1[6:] not in files:
+        if not bestand1.exists():
             print('\033[38;2;0;0;255m    Het bestand bestaat niet. Probeer het opnieuw.')
             continue
-        lang = bestand1[:-4][-2:].lower()
+        lang = str(bestand1)[:-4][-2:].lower()
         
         if lang not in talen:
             while True:
@@ -143,29 +143,26 @@ while True:
     else:
         print('\033[38;2;0;0;255mDe talen van de bestanden zijn niet hetzelfde. Probeer het opnieuw. \033[0m \n')
 
+l2ob = difflangs[0]
 
-with open(bestand2, 'r', encoding='utf-8') as bestand:
-    inhoud = bestand.read()
+if l2ob in ["la", 'gr']:
+    taleno = {'la': 'Nederlands', 'gr': 'Nederlands'}
+    
+else:
+    while True:
+        naarovanuit = input(f"\n\033[38;2;0;0;255mWil je het naar het {talen[l2ob]} of vanuit het {talen[l2ob]}? (Typ N(aar) of V(anuit)) \033[0m").lower().strip()
+        if naarovanuit not in ["n", "v"]:
+            print('\033[38;2;0;0;255mKies uit n of v')
+        else:
+            break
+    
+    if naarovanuit == "n":
+        taleno = {'du': 'Duits', 'en': 'Engels', 'fa': 'Frans'}
+        opvragen1 = opvragen
+        opvragen = {v: k for k, v in opvragen1.items()}
 
-    l2ob = difflangs[0]
-
-    if l2ob in ["la", 'gr']:
-        taleno = {'la': 'Nederlands', 'gr': 'Nederlands'}
-        
-    else:
-        while True:
-            naarovanuit = input(f"\033[38;2;0;0;255mWil je het naar het {talen[l2ob]} of vanuit het {talen[l2ob]}? (Typ N(aar) of V(anuit)) \033[0m").lower().strip()
-            if naarovanuit not in ["n", "v"]:
-                print('\033[38;2;0;0;255mKies uit n of v')
-            else:
-                break
-        if naarovanuit == "n":
-            taleno = {'du': 'Duits', 'en': 'Engels', 'fa': 'Frans'}
-            opvragen1 = opvragen
-            opvragen = {v: k for k, v in opvragen1.items()}
-            
-        elif naarovanuit == "v":
-            taleno = {'du': 'Nederlands', 'en': 'Nederlands', 'fa': 'Nederlands'}
+    elif naarovanuit == "v":
+        taleno = {'du': 'Nederlands', 'en': 'Nederlands', 'fa': 'Nederlands'}
 
 if len(opvragen) == 0:
     print('\033[38;2;0;0;255mEr zijn geen woorden om op te vragen. Het programma wordt afgesloten.\033[0m')
